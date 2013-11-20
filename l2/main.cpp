@@ -1,17 +1,14 @@
 //Программа шифрования/дешифрования символов латиницы алгоритмом Виженера
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
-#include <string>
-#include <fstream>
+#include "../iof.h"
 
 using namespace std;
  
 string key_conv (string key)
 {
 	string key_out;
-	for(int i = 0; i < key.size(); ++i)
+	for(unsigned int i = 0; i < key.size(); ++i)
     {
 		if(key[i] >= 'A' && key[i] <= 'Z')
 			key_out += key[i];
@@ -30,7 +27,7 @@ string key_conv (string key)
 string encryption(string key, string text)
 {
 	string out;
-	for(int i = 0, j = 0; i < text.length(); ++i)
+	for(unsigned int i = 0, j = 0; i < text.length(); ++i)
 	{
 		char c = text[i];
 		if(c >= 'a' && c <= 'z')
@@ -47,7 +44,7 @@ string encryption(string key, string text)
 string decryption(string key, string text)
 {
 	string out;
-	for(int i = 0, j = 0; i < text.length(); ++i)
+	for(unsigned int i = 0, j = 0; i < text.length(); ++i)
 	{
 		char c = text[i];
 		if(c >= 'a' && c <= 'z')
@@ -61,34 +58,6 @@ string decryption(string key, string text)
     return out;
 }
 
-string input (char *filename)
-{
-	ifstream file;
-	string text;
-	file.open (filename);
-	if(file)
-		getline(file, text);
-	else
-	{
-		printf("Can't open file \"%s\".\n", filename);
-		exit (1);
-	}	
-	file.close();
-	if(text.length()==0)
-	{
-		printf("File \"%s\" is empty.\n", filename);
-		exit (1);
-	}
-	return text;
-}
-
-void output(string text, char *filename)
-{
-	ofstream file;
-	file.open (filename);
-	file << text;
-	file.close();
-}
  
 int main (int argc, char *argv[])
 {

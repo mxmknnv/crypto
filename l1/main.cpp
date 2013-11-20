@@ -1,42 +1,14 @@
 //Программа шифрования/дешифрования символов латиницы алгоритмом Цезаря
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
+#include "../iof.h"
 
-int input (char *&text, char *filename)
-{
-	FILE *file=NULL;
-	int n=0;
-	if (!(file = fopen(filename, "r")))
-	{
-		printf("Can't open file \"%s\".", filename);
-		exit (1);
-	}	
-	fseek(file,0,2);
-	if(!(n=ftell(file))) 
-	{
-		printf("Error. File \"%s\" is empty.", filename);
-		exit (1);
-	}
-	fseek(file,0,0);
-	text=(char*)calloc(n-1, sizeof(char));
-	fscanf(file, "%s", text);
-	fclose(file);
-	return n;
-}
+using namespace std;
 
-void output(char *text, char *filename)
+string encryption (int k, string source)
 {
-	FILE *file = fopen(filename, "w");
-	fprintf(file, "%s", text);
-	fclose(file);
-}
-
-char *encryption (int k, char *source, int n)
-{
-	char *result=(char*)calloc(n-1, sizeof(char));
-	for (int i = 0; i < n; i++)
+	string result;
+	for (unsigned int i = 0; i < source.length(); i++)
 		if ((source[i] < 'A')||(source[i] > 'z'))
 			result[i] = source[i];
 		else
@@ -59,10 +31,10 @@ char *encryption (int k, char *source, int n)
 	return result;
 }
 
-char *decryption (int k, char *source, int n)
+string decryption (int k, string source)
 {
-	char *result=(char*)calloc(n-1, sizeof(char));
-	for (int i = 0; i < n; i++)
+	string result;
+	for (unsigned int i = 0; i < source.length(); i++)
 		if ((source[i] < 'A')||(source[i] > 'z'))
 			result[i] = source[i];
 		else
@@ -108,12 +80,11 @@ int main(int argc, char *argv[])
 		printf("Negative key? No!\n");
 		return 1;
 	}
-	char *text=NULL;
 	if (!strcmp(argv[1], "enc"))
-		output(encryption(atoi(argv[2]), text, input(text, argv[3])), argv[4]);
+		output(encryption(atoi(argv[2]), input(argv[3])), argv[4]);
 	else
 			if(!strcmp(argv[1], "dec"))
-				output(decryption(atoi(argv[2]), text, input(text, argv[3])), argv[4]);
+				output(decryption(atoi(argv[2]), input(argv[3])), argv[4]);
 			else
 			{
 				printf("Invalid arguments.\nUse \"help\" to see instructions.\n");
