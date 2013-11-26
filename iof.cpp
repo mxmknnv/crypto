@@ -8,9 +8,14 @@ string input (char *filename)
 {
 	ifstream file;
 	string text;
+	char temp;
 	file.open (filename);
 	if(file)
-		getline(file, text);
+		while(file)
+		{
+			file.get(temp);
+			text+=temp;
+		}
 	else
 	{
 		printf("Can't open file \"%s\".\n", filename);
@@ -29,6 +34,6 @@ void output(string text, char *filename)
 {
 	ofstream file;
 	file.open (filename);
-	file << text;
+	file << text.c_str();
 	file.close();
 }
