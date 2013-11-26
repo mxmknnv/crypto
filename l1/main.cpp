@@ -7,25 +7,25 @@ using namespace std;
 
 string encryption (int k, string source)
 {
-	string result;
+	string result ="";
 	for (unsigned int i = 0; i < source.length(); i++)
 		if ((source[i] < 'A')||(source[i] > 'z'))
-			result[i] = source[i];
+			result+= source[i];
 		else
 		{
 			if ((source[i] >= 'a') && (source[i] <= 'z'))
 			{
 				if (source[i] + k > 'z')
-					result[i] = source[i] + k - 26;
+					result+= source[i] + k - 26;
 				else
-					result[i] = source[i] + k;
+					result+= source[i] + k;
 			}
 			if ((source[i] >= 'A') && (source[i] <= 'Z'))
 			{
 				if (source[i] + k > 'Z')
-					result[i] = source[i] + k - 26;
+					result+= source[i] + k - 26;
 				else
-					result[i] = source[i] + k;
+					result+= source[i] + k;
 			}
 		}
 	return result;
@@ -33,25 +33,25 @@ string encryption (int k, string source)
 
 string decryption (int k, string source)
 {
-	string result;
+	string result="";
 	for (unsigned int i = 0; i < source.length(); i++)
 		if ((source[i] < 'A')||(source[i] > 'z'))
-			result[i] = source[i];
+			result+= source[i];
 		else
 		{
 			if ((source[i] >= 'a') && (source[i] <= 'z'))
 			{
 				if (source[i] - k < 'a')
-					result[i] = source[i] - k + 26;
+					result+= source[i] - k + 26;
 				else
-					result[i] = source[i] - k;
+					result+= source[i] - k;
 			}
 			if ((source[i] >= 'A') && (source[i] <= 'Z'))
 			{
 				if (source[i] - k < 'A')
-					result[i] = source[i] - k + 26;
+					result+= source[i] - k + 26;
 				else
-					result[i] = source[i] - k;
+					result+= source[i] - k;
 			}
 		}
 	return result;
