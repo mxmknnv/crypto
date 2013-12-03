@@ -1,5 +1,11 @@
-Lab №1.
-Use Makefile to compile applications.
-	first - Caesar cipher
-	second - Vigenere cipher
+Use Makefile to compile applications. 
+
+Examples.
+Caesar cipher:
+./first enc 1 Caesar.cpp out.txt
+./first dec 1 out.txt test.txt
+Vigenere cipher
+./second enc Caesar.cpp Vigenere.cpp out.txt
+./second dec Caesar.cpp out.txt test.txt
+
 Have fun with cryptography!

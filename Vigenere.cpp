@@ -1,21 +1,21 @@
 //Программа шифрования/дешифрования символов латиницы алгоритмом Виженера
 
 #include <string.h>
-#include "../iof.h"
+#include "iof.h"
 
 using namespace std;
  
 string key_conv (string key)
 {
 	string key_out;
-	for(unsigned int i = 0; i < key.size(); ++i)
-    {
+	for(unsigned long int i = 0; i < key.length(); i++)
+    	{
 		if(key[i] >= 'A' && key[i] <= 'Z')
 			key_out += key[i];
 		else 
 			if(key[i] >= 'a' && key[i] <= 'z')
 				key_out += key[i] + 'A' - 'a';
-    }
+    	}
 	if(key_out.length()==0)
 	{
 		printf("Key file doesn't contain letters of Latin alphabet.\n");
@@ -27,34 +27,38 @@ string key_conv (string key)
 string encryption(string key, string text)
 {
 	string out;
-	for(unsigned int i = 0, j = 0; i < text.length(); ++i)
+	for(unsigned long int i = 0, j = 0; i < text.length(); i++)
 	{
-		char c = text[i];
-		if(c >= 'a' && c <= 'z')
-			c += 'A' - 'a';
-		else 
-			if(c < 'A' || c > 'Z')
-				continue;
-		out += (c + key[j] - 2*'A') % 26 + 'A'; 
-		j = (j + 1) % key.length();
-    }
+		if(text[i] >= 'a' && text[i] <= 'z')
+			text[i] += 'A' - 'a';
+		
+		if(text[i] >= 'A' && text[i] <= 'Z')
+		{
+			out += (text[i] + key[j] - 2*'A') % 26 + 'A'; 
+			j = (j + 1) % key.length();
+		}
+		else
+			out += text[i];
+    	}
 	return out;
 }
  
 string decryption(string key, string text)
 {
 	string out;
-	for(unsigned int i = 0, j = 0; i < text.length(); ++i)
+	for(unsigned long int i = 0, j = 0; i < text.length(); i++)
 	{
-		char c = text[i];
-		if(c >= 'a' && c <= 'z')
-		c += 'A' - 'a';
-		else 
-			if(c < 'A' || c > 'Z')
-				continue; 
-		out += (c - key[j] + 26) % 26 + 'A'; 
-		j = (j + 1) % key.length();
-    }
+		if(text[i] >= 'a' && text[i] <= 'z')
+			text[i] += 'A' - 'a';
+		
+		if(text[i] >= 'A' && text[i] <= 'Z')
+		{
+			out += (text[i] - key[j] + 26) % 26 + 'A'; 
+			j = (j + 1) % key.length();
+		}
+		else
+			out += text[i];
+    	}
     return out;
 }
 
